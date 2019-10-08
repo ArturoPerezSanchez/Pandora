@@ -19,7 +19,7 @@ export class PandoraStatusBar extends LitElement {
 
   constructor() {
     super();
-    this.title = 'Hey there';
+    this.title = 'Hey there 4';
     this.counter = 5;
   }
 

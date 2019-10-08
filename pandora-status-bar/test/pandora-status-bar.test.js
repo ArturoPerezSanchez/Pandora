@@ -8,7 +8,7 @@ describe('PandoraStatusBar', () => {
       <pandora-status-bar></pandora-status-bar>
     `);
 
-    expect(el.title).to.equal('Hey there');
+    expect(el.title).to.equal('Hey there 4');
     expect(el.counter).to.equal(5);
   });
 
@@ -18,7 +18,7 @@ describe('PandoraStatusBar', () => {
     `);
 
     expect(el).shadowDom.to.equal(`
-      <h2>Hey there Nr. 5!</h2>
+      <h2>Hey there 4 Nr. 5!</h2>
       <button>increment</button>
     `);
   });

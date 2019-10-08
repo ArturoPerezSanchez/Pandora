@@ -1,14 +1,19 @@
-import { storiesOf, html, withKnobs, withClassPropertiesKnobs } from '@open-wc/demoing-storybook';
+import { storiesOf, html } from '@open-wc/demoing-storybook';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { withKnobs } from '@storybook/addon-knobs';
+import '../src/pandora-status-bar.js';
+import readme from '../README.md';
 
-import { PandoraStatusBar } from '../src/PandoraStatusBar.js';
-import '../pandora-status-bar.js';
-
-storiesOf('pandora-status-bar', module)
+storiesOf('ÁTOMOS|pandora-status-bar', module)
+  .addParameters({
+    notes: { markdown: readme },
+  })
   .addDecorator(withKnobs)
-  .add('Documentation', () => withClassPropertiesKnobs(PandoraStatusBar))
   .add(
-    'Alternative Title',
-    () => html`
-      <pandora-status-bar .title=${'Something else'}></pandora-status-bar>
-    `,
+    'Barra de estado',
+    () =>
+      html`
+        <br />
+        <pandora-status-bar></pandora-status-bar>
+      `,
   );
