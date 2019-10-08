@@ -1,3 +1,3 @@
-import pandoraProgressBar from './PandoraProgressBar.js';
+import PandoraProgressBar from './PandoraProgressBar.js';
 
-window.customElements.define('pandora-progress-bar', pandoraProgressBar);
+window.customElements.define('pandora-progress-bar', PandoraProgressBar);

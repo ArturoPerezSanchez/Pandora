@@ -26,8 +26,10 @@ export default class PandoraProgressBar extends LitElement {
 
       .bar {
         height: 10px;
+        width: 50%;
         border-radius: 2px;
         text-align: right;
+        background: green;
       }
 
       .bar-text {
@@ -49,16 +51,14 @@ export default class PandoraProgressBar extends LitElement {
   constructor() {
     super();
     this.percentage = 0;
+    this.color = 'green';
   }
 
   render() {
     return html`
       <div class="progress-text">${this.title}</div>
       <div class="progress">
-        <div
-          class="bar"
-          style="width: ${this.percentage}%; background: ${this.color ? `${this.color}` : 'blue'}"
-        >
+        <div class="bar">
           <span class="bar-text">
             ${this.percentage !== 100
               ? html`
@@ -77,10 +77,18 @@ export default class PandoraProgressBar extends LitElement {
       if (['percentage'].includes(propName)) {
         this.updatePercentage(this.percentage);
       }
+      if (['color'].includes(propName)) {
+        this.updateColor(this.color);
+      }
     });
   }
 
   updatePercentage(percentage) {
     this.percentage = Math.min(Math.max(percentage, 0), 100);
+    this.shadowRoot.querySelector('.bar').style.width = `${this.percentage}%`;
+  }
+
+  updateColor(color) {
+    this.shadowRoot.querySelector('.bar').style.background = color;
   }
 }
