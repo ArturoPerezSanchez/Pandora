@@ -1,8 +1,8 @@
 {
-  "name": "pandora-status-bar",
+  "name": "pandora-progress-bar",
   "version": "0.0.0",
-  "description": "Webcomponent pandora-status-bar following open-wc recommendations",
-  "author": "pandora-status-bar",
+  "description": "Webcomponent pandora-progress-bar following open-wc recommendations",
+  "author": "pandora-progress-bar",
   "license": "MIT",
   "main": "index.js",
   "module": "index.js",
