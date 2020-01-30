@@ -10,7 +10,7 @@ const DATA_LINKS = [
   { title: 'Contacto', href: '#' },
 ];
 
-const DATA_CUATRO_COLUMNAS = [
+const DATA_FOUR_COLUMNS = [
   {
     title: 'Conócenos',
     links: [
@@ -49,7 +49,7 @@ const DATA_CUATRO_COLUMNAS = [
   },
 ];
 
-const DATA_DOS_COLUMNAS = [
+const DATA_TWO_COLUMNS = [
   {
     title: 'Conócenos',
     links: [
@@ -86,7 +86,7 @@ storiesOf('ÁTOMOS|pandora-footer', module)
   })
   .addDecorator(withKnobs)
   .add('Footer | Formal', () => {
-    const COLUMNAS = object('columnas', DATA_CUATRO_COLUMNAS);
+    const columns = object('columns', DATA_FOUR_COLUMNS);
     const LINKS = object('links', DATA_LINKS);
     const TOPBORDER = boolean('topBorder', true);
     const TEXT = text('text', 'Compra venta y restauración de todo tipo de artículos');
@@ -94,7 +94,7 @@ storiesOf('ÁTOMOS|pandora-footer', module)
     const TEXTCOLOR = text('text', '#333');
     return html`
       <pandora-footer
-        .columnas=${COLUMNAS}
+        .columns=${columns}
         .links=${LINKS}
         .topBorder=${TOPBORDER}
         .text=${TEXT}
@@ -104,15 +104,14 @@ storiesOf('ÁTOMOS|pandora-footer', module)
     `;
   })
   .add('Footer | casual', () => {
-    const COLUMNAS = object('columnas', DATA_DOS_COLUMNAS);
+    const columns = object('columns', DATA_TWO_COLUMNS);
     const LINKS = object('links', DATA_LINKS);
     const TOPBORDER = boolean('topBorder', false);
-
     const LINKSCOLOR = text('text', 'white');
     const BACKGROUNDCOLOR = text('text', 'linear-gradient(135deg, darkblue, #f000f0, darkred)');
     return html`
       <pandora-footer
-        .columnas=${COLUMNAS}
+        .columns=${columns}
         .links=${LINKS}
         .topBorder=${TOPBORDER}
         .linksColor=${LINKSCOLOR}

@@ -148,7 +148,7 @@ export class PandoraFooter extends LitElement {
 
   static get properties() {
     return {
-      columnas: { type: Array },
+      columns: { type: Array },
       links: { type: Array },
       topBorder: { type: Boolean, reflect: true },
       text: { type: String },
@@ -161,7 +161,7 @@ export class PandoraFooter extends LitElement {
 
   constructor() {
     super();
-    this.columnas = [];
+    this.columns = [];
     this.links = [];
     this.text = '';
     this.topBorder = true;
@@ -182,7 +182,7 @@ export class PandoraFooter extends LitElement {
             `
           : html``}
         <div class="columns">
-          ${this.columnas.map(
+          ${this.columns.map(
             columna => html`
               <div class="column">
                 <h4>${columna.title}</h4>
