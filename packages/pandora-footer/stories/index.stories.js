@@ -49,7 +49,7 @@ const DATA_FOUR_COLUMNS = [
   },
 ];
 
-const DATA_TWO_COLUMNS = [
+const DATA_THREE_COLUMNS = [
   {
     title: 'Conócenos',
     links: [
@@ -85,7 +85,7 @@ storiesOf('ÁTOMOS|pandora-footer', module)
     notes: { markdown: readme },
   })
   .addDecorator(withKnobs)
-  .add('Footer | Formal', () => {
+  .add('Footer formal', () => {
     const columns = object('columns', DATA_FOUR_COLUMNS);
     const LINKS = object('links', DATA_LINKS);
     const TOPBORDER = boolean('topBorder', true);
@@ -103,12 +103,13 @@ storiesOf('ÁTOMOS|pandora-footer', module)
       ></pandora-footer>
     `;
   })
-  .add('Footer | casual', () => {
-    const columns = object('columns', DATA_TWO_COLUMNS);
+  .add('Footer casual', () => {
+    const columns = object('columns', DATA_THREE_COLUMNS);
     const LINKS = object('links', DATA_LINKS);
     const TOPBORDER = boolean('topBorder', false);
     const LINKSCOLOR = text('text', 'white');
     const BACKGROUNDCOLOR = text('text', 'linear-gradient(135deg, darkblue, #f000f0, darkred)');
+    const LINKSTITLECOLOR = text('text', '#f7f');
     return html`
       <pandora-footer
         .columns=${columns}
@@ -116,6 +117,7 @@ storiesOf('ÁTOMOS|pandora-footer', module)
         .topBorder=${TOPBORDER}
         .linksColor=${LINKSCOLOR}
         .backgroundColor=${BACKGROUNDCOLOR}
+        .linksTitleColor=${LINKSTITLECOLOR}
       ></pandora-footer>
     `;
   });

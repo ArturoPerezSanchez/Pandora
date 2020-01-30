@@ -46,7 +46,7 @@ export class PandoraFooter extends LitElement {
         display: flex;
         flex-direction: row;
         align-items: top;
-        padding: 0 20px;
+        padding-right: 20px;
       }
 
       .text {
@@ -56,6 +56,12 @@ export class PandoraFooter extends LitElement {
         font-size: 16px;
       }
 
+      .columncontent {
+        margin-left: auto;
+        margin-right: auto;
+        padding-right: 20px;
+      }
+
       .column {
         display: flex;
         flex-direction: column;
@@ -63,12 +69,8 @@ export class PandoraFooter extends LitElement {
         width: 100%;
       }
 
-      :host([topBorder]) .column {
+      :host([topBorder]) .columncontent {
         border-top: 1px solid black;
-      }
-
-      .container .columns .column:not(:last-child) {
-        margin-right: 3%;
       }
 
       .links {
@@ -80,17 +82,11 @@ export class PandoraFooter extends LitElement {
       }
 
       @media (max-width: 1023px) {
-        .container .columns .column {
-          flex: 0 0 49%;
-          padding: 30px 0;
+        .text {
+          margin: 0 5% 0 5%;
+          padding: 0px;
+          fontsize: 10px;
         }
-
-        .container .columns .column:nth-child(even) {
-          margin-right: 0;
-        }
-      }
-
-      @media (max-width: 480px) {
         h4 {
           display: flex;
           justify-content: space-between;
@@ -110,22 +106,8 @@ export class PandoraFooter extends LitElement {
           -o-transition: transform 0.2s;
         }
 
-        h4:focus::after {
-          transform: rotate(180deg);
-        }
-
-        h4:focus ~ ul {
-          display: block;
-        }
-
         ul {
           display: none;
-        }
-
-        pandora-brand {
-          position: absolute;
-          top: 0;
-          left: 20px;
         }
 
         .container:first-child {
@@ -133,14 +115,22 @@ export class PandoraFooter extends LitElement {
           border: none;
         }
 
-        .container .columns .column {
-          margin-right: 0 !important;
-          flex-basis: 100%;
-          padding-bottom: 10px;
+        .container .columns {
+          flex-direction: column;
+          padding-right: 0px;
         }
 
+        .container .columns .column .columncontent {
+          width: 100%;
+        }
+        .container .columns .column {
+          width: 90%;
+          margin: 5%;
+          margin-top: 15px;
+          margin-bottom: 15px;
+        }
         .container .columns .column:last-child {
-          border-bottom: 1px solid var(--gray);
+          margin-bottom: 45px;
         }
       }
     `;
@@ -152,10 +142,12 @@ export class PandoraFooter extends LitElement {
       links: { type: Array },
       topBorder: { type: Boolean, reflect: true },
       text: { type: String },
-      linksColor: { type: String },
-      backgroundColor: { type: String },
       textColor: { type: String },
       textSize: { type: String },
+      linksTitleColor: { type: String },
+      linksColor: { type: String },
+      backgroundColor: { type: String },
+      _active: { type: Number },
     };
   }
 
@@ -166,9 +158,11 @@ export class PandoraFooter extends LitElement {
     this.text = '';
     this.topBorder = true;
     this.linksColor = '#087021';
+    this.linksTitleColor = '#087021';
     this.backgroundColor = '#ddd';
     this.textColor = 'fff';
     this.textSize = '18px';
+    this.active = -1;
   }
 
   render() {
@@ -184,8 +178,11 @@ export class PandoraFooter extends LitElement {
         <div class="columns">
           ${this.columns.map(
             columna => html`
-              <div class="column">
-                <h4>${columna.title}</h4>
+              <div class="column" column-index=${this.columns.indexOf(columna)} @click=${
+              this.displayList
+            })">
+              <div class="columncontent">
+                <h4 style="color:${this.linksTitleColor}">${columna.title}</h4>
                 <ul>
                   ${columna.links.map(
                     link => html`
@@ -197,6 +194,7 @@ export class PandoraFooter extends LitElement {
                     `,
                   )}
                 </ul>
+              </div>
               </div>
             </div>
           `,
@@ -224,5 +222,25 @@ export class PandoraFooter extends LitElement {
 
   updateColor(backgroundColor) {
     this.shadowRoot.querySelector('.container').style.background = backgroundColor;
+  }
+
+  displayList(e) {
+    const index = e.currentTarget.getAttribute('column-index');
+    const lists = this.shadowRoot.querySelectorAll('ul');
+
+    if (this.active === index) {
+      if (lists[index].style.display === 'block') {
+        lists[index].style.display = 'none';
+      } else {
+        lists[index].style.display = 'block';
+      }
+    } else {
+      lists[index].style.display = 'block';
+
+      if (this.active >= 0) {
+        lists[this.active].style.display = 'none';
+      }
+    }
+    this.active = index;
   }
 }
