@@ -164,7 +164,7 @@ export class PandoraFooter extends LitElement {
     this.columnas = [];
     this.links = [];
     this.text = '';
-    this.topBorder = false;
+    this.topBorder = true;
     this.linksColor = '#087021';
     this.backgroundColor = '#ddd';
     this.textColor = 'fff';
@@ -174,9 +174,13 @@ export class PandoraFooter extends LitElement {
   render() {
     return html`
       <div class="container">
-        <div class="text" style="color: ${this.textColor}; font-size:${this.textSize}">
-          ${this.text}
-        </div>
+        ${this.text
+          ? html`
+              <p class="text" style="color: ${this.textColor}; font-size:${this.textSize}">
+                ${this.text}
+              </p>
+            `
+          : html``}
         <div class="columns">
           ${this.columnas.map(
             columna => html`
