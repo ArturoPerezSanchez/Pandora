@@ -68,7 +68,6 @@ export class PandoraProgressBar extends LitElement {
           </span>
         </div>
       </div>
-      <slot></slot>
     `;
   }
 
