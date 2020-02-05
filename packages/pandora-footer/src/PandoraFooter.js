@@ -10,6 +10,11 @@ export class PandoraFooter extends LitElement {
         outline: 0;
       }
 
+      :host([topBorder]) .columncontent {
+        border-top: 1px solid black;
+        margin-top: 15px;
+      }
+
       a {
         text-decoration: none;
         font-size: 14px;
@@ -52,6 +57,7 @@ export class PandoraFooter extends LitElement {
       .text {
         text-align: center;
         margin: 30px;
+        margin-bottom: 15px;
         padding-top: 30px;
         font-size: 16px;
       }
@@ -69,10 +75,6 @@ export class PandoraFooter extends LitElement {
         width: 100%;
       }
 
-      :host([topBorder]) .columncontent {
-        border-top: 1px solid black;
-      }
-
       .links {
         margin-left: auto;
       }
@@ -84,13 +86,14 @@ export class PandoraFooter extends LitElement {
       @media (max-width: 1023px) {
         .text {
           margin: 0 5% 0 5%;
-          padding: 0px;
+          padding: 10px;
           fontsize: 10px;
         }
         h4 {
           display: flex;
           justify-content: space-between;
           font-size: 18px;
+          cursor: pointer;
         }
 
         h4::after {
@@ -99,20 +102,15 @@ export class PandoraFooter extends LitElement {
           font-size: 16px;
           margin-right: 5px;
 
-          transition: transform 0.2s;
-          -webkit-transition: transform 0.2s;
-          -moz-transition: transform 0.2s;
-          -ms-transition: transform 0.2s;
-          -o-transition: transform 0.2s;
+          transition: transform 0.5s;
+          -webkit-transition: transform 0.5s;
+          -moz-transition: transform 0.5s;
+          -ms-transition: transform 0.5s;
+          -o-transition: transform 0.5s;
         }
 
-        ul {
-          display: none;
-        }
-
-        .container:first-child {
-          padding: 70px 0 0;
-          border: none;
+        .rotated::after {
+          transform: rotate3d(1, 0, 0, 180deg);
         }
 
         .container .columns {
@@ -123,6 +121,11 @@ export class PandoraFooter extends LitElement {
         .container .columns .column .columncontent {
           width: 100%;
         }
+
+        .container .columns .column .media-hidden {
+          display: none;
+        }
+
         .container .columns .column {
           width: 90%;
           margin: 5%;
@@ -183,7 +186,7 @@ export class PandoraFooter extends LitElement {
             })">
               <div class="columncontent">
                 <h4 style="color:${this.linksTitleColor}">${columna.title}</h4>
-                <ul>
+                <ul class="media-hidden">
                   ${columna.links.map(
                     link => html`
                       <li>
@@ -229,16 +232,19 @@ export class PandoraFooter extends LitElement {
     const lists = this.shadowRoot.querySelectorAll('ul');
 
     if (this.active === index) {
-      if (lists[index].style.display === 'block') {
-        lists[index].style.display = 'none';
+      if (lists[index].classList.contains('media-hidden')) {
+        lists[index].classList.remove('media-hidden');
+        lists[index].parentElement.getElementsByTagName('h4')[0].classList.add('rotated');
       } else {
-        lists[index].style.display = 'block';
+        lists[index].classList.add('media-hidden');
+        lists[index].parentElement.getElementsByTagName('h4')[0].classList.remove('rotated');
       }
     } else {
-      lists[index].style.display = 'block';
-
+      lists[index].classList.remove('media-hidden');
+      lists[index].parentElement.getElementsByTagName('h4')[0].classList.add('rotated');
       if (this.active >= 0) {
-        lists[this.active].style.display = 'none';
+        lists[this.active].classList.add('media-hidden');
+        lists[this.active].parentElement.getElementsByTagName('h4')[0].classList.remove('rotated');
       }
     }
     this.active = index;
