@@ -2,6 +2,14 @@
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
+It's a customizable and responsive progress bar, the title is optional and the default color and percentage its green and 0 
+respectivel.
+
+## Variables
+    title(String): The titled displayed over the bar
+    percentage(Number): How complete is the bar
+    color(String): Color of the filled part of the bar (can be chosen by name, hex, rgb, gradient...)
+
 ## Installation
 ```bash
 npm i pandora-progress
@@ -16,22 +24,17 @@ npm i pandora-progress
 <pandora-progress></pandora-progress>
 ```
 
-## Testing using karma (if applied by author)
+## Testing using karma
 ```bash
 npm run test
 ```
 
-## Testing using karma via browserstack (if applied by author)
-```bash
-npm run test:bs
-```
-
-## Demoing using storybook (if applied by author)
+## Demoing using storybook
 ```bash
 npm run storybook
 ```
 
-## Linting (if applied by author)
+## Linting
 ```bash
 npm run lint
 ```
