@@ -22,20 +22,20 @@
     "start:compatibility": "es-dev-server --app-index index.html --compatibility all --node-resolve --open --watch"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
+    "@open-wc/building-rollup": "^0.9.0",
+    "@open-wc/demoing-storybook": "^0.3.0",
     "@open-wc/eslint-config": "^1.0.0",
     "@open-wc/prettier-config": "^0.1.10",
+    "@open-wc/testing": "^2.0.0",
+    "@open-wc/testing-karma": "^3.0.0",
+    "@open-wc/testing-karma-bs": "^1.0.0",
+    "es-dev-server": "^1.5.0",
+    "eslint": "^6.1.0",
     "husky": "^1.0.0",
     "lint-staged": "^8.0.0",
-    "@open-wc/testing-karma": "^3.0.0",
-    "webpack-merge": "^4.1.5",
-    "@open-wc/testing-karma-bs": "^1.0.0",
-    "@open-wc/testing": "^2.0.0",
-    "@open-wc/demoing-storybook": "^0.3.0",
-    "@open-wc/building-rollup": "^0.9.0",
     "rimraf": "^2.6.3",
     "rollup": "^1.15.4",
-    "es-dev-server": "^1.5.0"
+    "webpack-merge": "^4.1.5"
   },
   "eslintConfig": {
     "extends": [
@@ -62,7 +62,8 @@
   "author": "pandora-test",
   "license": "MIT",
   "dependencies": {
+    "lit-element": "^2.0.1",
     "lit-html": "^1.0.0",
-    "lit-element": "^2.0.1"
+    "moment": "^2.24.0"
   }
 }
