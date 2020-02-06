@@ -181,26 +181,27 @@ export class PandoraFooter extends LitElement {
         <div class="columns">
           ${this.columns.map(
             columna => html`
-              <div class="column" column-index=${this.columns.indexOf(columna)} @click=${
-              this.displayList
-            })">
-              <div class="columncontent">
-                <h4 style="color:${this.linksTitleColor}">${columna.title}</h4>
-                <ul class="media-hidden">
-                  ${columna.links.map(
-                    link => html`
-                      <li>
-                        <a href=${link.href} title=${link.title} style="color: ${this.linksColor}"
-                          >${link.title}</a
-                        >
-                      </li>
-                    `,
-                  )}
-                </ul>
+              <div
+                class="column"
+                column-index=${this.columns.indexOf(columna)}
+                @click="${this.displayList})"
+              >
+                <div class="columncontent">
+                  <h4 style="color:${this.linksTitleColor}">${columna.title}</h4>
+                  <ul class="media-hidden">
+                    ${columna.links.map(
+                      link => html`
+                        <li>
+                          <a href=${link.href} title=${link.title} style="color: ${this.linksColor}"
+                            >${link.title}</a
+                          >
+                        </li>
+                      `,
+                    )}
+                  </ul>
+                </div>
               </div>
-              </div>
-            </div>
-          `,
+            `,
           )}
         </div>
       </div>
