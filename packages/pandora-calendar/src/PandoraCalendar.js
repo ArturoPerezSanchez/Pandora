@@ -213,7 +213,7 @@ export class PandoraCalendar extends LitElement {
 
   static get properties() {
     return {
-      defaultdate: { type: String },
+      defaultDate: { type: String },
       currentDate: { type: Date },
       weekstart: { type: Number },
       weekdaysvalues: { type: String },
@@ -241,7 +241,7 @@ export class PandoraCalendar extends LitElement {
     this.currentDate = new Date();
     this.arrowRight = '\u{1f844}';
     this.arrowLeft = '\u{1f846}';
-    this.defaultdate = '';
+    this.defaultDate = '';
     this.weekdaystextcolor = '#000';
     this.weekdaysbackgroundcolor = '#ccc';
     this.headertextcolor = 'white';
@@ -282,8 +282,8 @@ export class PandoraCalendar extends LitElement {
   }
 
   firstUpdated() {
-    if (this.defaultdate) {
-      this.currentDate = new Date(this.defaultdate);
+    if (this.defaultDate) {
+      this.currentDate = new Date(this.defaultDate);
     } else {
       this.currentDate = new Date();
     }
@@ -375,26 +375,13 @@ export class PandoraCalendar extends LitElement {
       });
       this.currentDate.setDate(this.currentDate.getDate() + 1);
     }
-    _auxweekdays.sort(this.compare);
+    _auxweekdays.sort((a, b) => (a.index > b.index ? 1 : -1));
     _auxweekdays.forEach(wd => res.push(wd.day));
 
     for (let j = 0; j < this.weekstart; j += 1) {
       res.push(res.shift());
     }
     return res;
-  }
-
-  static compare(a, b) {
-    const A = a.index;
-    const B = b.index;
-
-    let comparison = 0;
-    if (A > B) {
-      comparison = 1;
-    } else {
-      comparison = -1;
-    }
-    return comparison;
   }
 
   getMonth() {

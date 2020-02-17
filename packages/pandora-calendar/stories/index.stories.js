@@ -5,9 +5,9 @@ import '../pandora-calendar.js';
 import readme from '../README.md';
 
 const DATES = [
-  { text: 'Comunion de Antonio', date: '02/25/2020' },
-  { text: '', date: '02/20/2020' },
-  { text: 'Reunion con clientes', date: '03/21/2020' },
+  { text: 'Comunion de Antonio', date: '05/25/2020' },
+  { text: '', date: '04/30/2020' },
+  { text: 'Reunion con clientes', date: '05/21/2020' },
 ];
 
 storiesOf('ÁTOMOS|pandora-calendar', module)
@@ -21,7 +21,7 @@ storiesOf('ÁTOMOS|pandora-calendar', module)
     const bubbletextcolor = text('bubbletextcolor', 'white');
     const highlighteddaycolor = text('highlighteddaycolor', '#aa0000');
     const weekstart = number('weekstart', '1');
-    const defaultdate = text('defaultdate', '');
+    const defaultdate = text('defaultdate', '05-06-2020');
     const weekdaysvalues = text('weekdaysvalues', 'narrow');
     const weekdaystextcolor = text('weekdaystextcolor', 'yellow');
     const weekdaysbackgroundcolor = text('weekdaysbackgroundcolor', 'black');
