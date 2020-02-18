@@ -17,13 +17,30 @@
   <title>pandora</title>
 </head>
 <body>
-  <pandora-calendar
+  
+  <pandora-progress-bar
     title="Titulo"
     percentage=""
     color="green">
-</pandora-calendar>
+</pandora-progress-bar>
 
+
+<div style="margin: auto; width: 50%;">
+  <pandora-calendar>
+  </pandora-calendar>
+</div>
+
+  <pandora-footer
+    topBorder= true
+    text="test"
+    textColor="red"
+    textSize="12px"
+  ></pandora-footer>
+
+  <script type="module" src="./packages/pandora-progress-bar/pandora-progress-bar.js"></script>
+  <script type="module" src="./packages/pandora-footer/pandora-footer.js"></script>
   <script type="module" src="./packages/pandora-calendar/pandora-calendar.js"></script>
+ 
 </body>
 
 </html>
