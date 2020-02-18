@@ -18,16 +18,15 @@ describe('Progress Bar', () => {
     `);
 
     expect(el).shadowDom.to.equal(`
-    <div class="progress-text">
+    <div class="container">
+      <div class="progress-text"> </div>
+      <div class="progress">
+        <div class="bar" style="width: 100%; background: green;" > </div>
+      </div>
+      <div class="bar-text" style="margin-right: 0%;" >
+        Completado
+      </div>
     </div>
-    <div class="progress">
-      <div
-        class="bar"
-        style="width: 100%; background: green;"
-      >
-        <span class="bar-text">
-          Completado
-        </span>
     `);
   });
 

@@ -9,8 +9,15 @@ export class PandoraProgressBar extends LitElement {
         font-family: 'Open Sans', sans-serif;
       }
 
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        padding-bottom: 3px;
+      }
+
       .progress-text {
         font-weight: 300;
+        width: 100%;
       }
 
       .progress {
@@ -33,8 +40,10 @@ export class PandoraProgressBar extends LitElement {
       }
 
       .bar-text {
-        position: relative;
-        top: 16px;
+        margin-left: auto;
+        position: unset;
+        margin-top: 10px;
+        display: block;
         font-weight: 600;
       }
     `;
@@ -56,16 +65,17 @@ export class PandoraProgressBar extends LitElement {
 
   render() {
     return html`
-      <div class="progress-text">${this.title}</div>
-      <div class="progress">
-        <div class="bar">
-          <span class="bar-text">
-            ${this.percentage !== 100
-              ? html`
-                  ${this.percentage}%
-                `
-              : 'Completado'}
-          </span>
+      <div class="container">
+        <div class="progress-text">${this.title}</div>
+        <div class="progress">
+          <div class="bar"></div>
+        </div>
+        <div class="bar-text">
+          ${this.percentage !== 100
+            ? html`
+                ${this.percentage}%
+              `
+            : 'Completado'}
         </div>
       </div>
     `;
@@ -85,6 +95,7 @@ export class PandoraProgressBar extends LitElement {
   updatePercentage(percentage) {
     this.percentage = Math.min(Math.max(percentage, 0), 100);
     this.shadowRoot.querySelector('.bar').style.width = `${this.percentage}%`;
+    this.shadowRoot.querySelector('.bar-text').style.marginRight = `${100 - this.percentage}%`;
   }
 
   updateColor(color) {
