@@ -213,45 +213,44 @@ export class PandoraCalendar extends LitElement {
 
   static get properties() {
     return {
-      defaultDate: { type: String },
-      currentDate: { type: Date },
-      weekstart: { type: Number },
-      weekdaysvalues: { type: String },
-      weekdaystextcolor: { type: String },
-      weekdaysbackgroundcolor: { type: String },
-      headertextcolor: { type: String },
-      headerbackgroundcolor: { type: String },
-      dayscolor: { type: String },
-      daysbackgroundcolor: { type: String },
-      arrowRight: { type: String },
       arrowLeft: { type: String },
+      arrowRight: { type: String },
       bubblecolor: { type: String },
       bubblesecondarycolor: { type: String },
       bubbletextcolor: { type: String },
-      highlighteddaycolor: { type: String },
-      _st: { type: String },
+      _currentDate: { type: Date },
       dates: { type: Array },
+      daysbackgroundcolor: { type: String },
+      dayscolor: { type: String },
+      defaultDate: { type: String },
+      headerbackgroundcolor: { type: String },
+      headertextcolor: { type: String },
+      highlighteddaycolor: { type: String },
+      weekdaysbackgroundcolor: { type: String },
+      weekdaystextcolor: { type: String },
+      weekdaysvalues: { type: String },
+      weekstart: { type: Number },
+      _st: { type: String },
     };
   }
 
   constructor() {
     super();
-    this.weekdaysvalues = 'narrow'; // 'long', 'short', 'letter', 'narrow'
-    this.weekstart = 1; // 0 sunday, 1 monday, 2 tuesday...
-    this.currentDate = new Date();
-    this.arrowRight = '\u{1f844}';
-    this.arrowLeft = '\u{1f846}';
-    this.defaultDate = '';
-    this.weekdaystextcolor = '#000';
-    this.weekdaysbackgroundcolor = '#ccc';
-    this.headertextcolor = 'white';
-    this.headerbackgroundcolor = '#333';
-    this.dayscolor = '#000';
-    this.daysbackgroundcolor = 'white';
+    this.arrowLeft = '\u{1f844}';
+    this.arrowRight = '\u{1f846}';
     this.bubblecolor = '#333';
     this.bubbletextcolor = '#fff';
-    this.highlighteddaycolor = '#ccc';
+    this._currentDate = new Date();
     this.dates = [];
+    this.daysbackgroundcolor = 'white';
+    this.dayscolor = '#000';
+    this.headerbackgroundcolor = '#333';
+    this.headertextcolor = 'white';
+    this.highlighteddaycolor = '#ccc';
+    this.weekdaysbackgroundcolor = '#ccc';
+    this.weekdaysvalues = 'narrow'; // 'long', 'short', 'letter', 'narrow'
+    this.weekdaystextcolor = '#000';
+    this.weekstart = 1; // 0 sunday, 1 monday, 2 tuesday...
   }
 
   render() {
@@ -261,7 +260,7 @@ export class PandoraCalendar extends LitElement {
         <div class="header">
           <div data-slide=${-1} @click=${this.changeMonth} class="arrow rotated desktop"></div>
           <div class="year-block">
-            <div class="year">${this.currentDate.getFullYear()}</div>
+            <div class="year">${this._currentDate.getFullYear()}</div>
             <div class="month">${this.getMonth()}</div>
           </div>
           <div data-slide=${1} @click=${this.changeMonth} class="arrow rotated mobile"></div>
@@ -282,18 +281,25 @@ export class PandoraCalendar extends LitElement {
   }
 
   firstUpdated() {
+    this.updateDefaultDate();
+  }
+
+  updateDefaultDate() {
     if (this.defaultDate) {
-      this.currentDate = new Date(this.defaultDate);
+      this._currentDate = new Date(parseInt(this.defaultDate, 10));
     } else {
-      this.currentDate = new Date();
+      this._currentDate = new Date();
     }
-    this.currentDate.setDate(1);
   }
 
   updated(changedProperties) {
-    this.currentDate.setDate(1);
     changedProperties.forEach((_, propName) => {
-      if (['headerbackgroundcolor'].includes(propName)) {
+      if (['_currentDate'].includes(propName)) {
+        this._currentDate.setDate(1);
+        this.updateBubbles();
+      } else if (['defaultDate'].includes(propName)) {
+        this.updateDefaultDate();
+      } else if (['headerbackgroundcolor'].includes(propName)) {
         this.shadowRoot.querySelector('.header').style.background = this.headerbackgroundcolor;
       } else if (['headertextcolor'].includes(propName)) {
         this.shadowRoot.querySelector('.header').style.color = this.headertextcolor;
@@ -314,6 +320,8 @@ export class PandoraCalendar extends LitElement {
           'bubbletextcolor',
           'highlighteddaycolor',
           'currentDate',
+          'arrowLeft',
+          'arrowRight',
         ].includes(propName)
       ) {
         this.updateBubbles();
@@ -343,11 +351,11 @@ export class PandoraCalendar extends LitElement {
     this._st = html`
       <style>
         .arrow:after {
-          content: '${this.arrowLeft}';
+          content: '${this.arrowRight}';
         }
 
         .rotated:after {
-          content: '${this.arrowRight}';
+          content: '${this.arrowLeft}';
         }
 
         .bubble:before {
@@ -368,13 +376,14 @@ export class PandoraCalendar extends LitElement {
     const res = [];
     for (let i = 0; i < 7; i += 1) {
       _auxweekdays.push({
-        index: this.currentDate.getDay(),
-        day: this.currentDate.toLocaleString(window.navigator.language, {
+        index: this._currentDate.getDay(),
+        day: this._currentDate.toLocaleString(window.navigator.language, {
           weekday: this.weekdaysvalues,
         }),
       });
-      this.currentDate.setDate(this.currentDate.getDate() + 1);
+      this._currentDate.setDate(this._currentDate.getDate() + 1);
     }
+    this._currentDate.setDate(this._currentDate.getDate() - 7);
     _auxweekdays.sort((a, b) => (a.index > b.index ? 1 : -1));
     _auxweekdays.forEach(wd => res.push(wd.day));
 
@@ -385,20 +394,20 @@ export class PandoraCalendar extends LitElement {
   }
 
   getMonth() {
-    const month = this.currentDate.toLocaleString(window.navigator.language, { month: 'long' });
+    const month = this._currentDate.toLocaleString(window.navigator.language, { month: 'long' });
     return month.charAt(0).toUpperCase() + month.slice(1);
   }
 
   getMonthFirstWeekDay() {
-    return new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1).getDay();
+    return new Date(this._currentDate.getFullYear(), this._currentDate.getMonth(), 1).getDay();
   }
 
   getMonthLastDay() {
-    return new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
+    return new Date(this._currentDate.getFullYear(), this._currentDate.getMonth() + 1, 0).getDate();
   }
 
   getPreviousMonthLastDay() {
-    return new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0).getDate();
+    return new Date(this._currentDate.getFullYear(), this._currentDate.getMonth(), 0).getDate();
   }
 
   getBody() {
@@ -477,16 +486,15 @@ export class PandoraCalendar extends LitElement {
   }
 
   changeMonth(e) {
-    this.currentDate = new Date(
-      this.currentDate.setMonth(
-        this.currentDate.getMonth() + parseInt(e.currentTarget.getAttribute('data-slide'), 10),
+    this._currentDate = new Date(
+      this._currentDate.setMonth(
+        this._currentDate.getMonth() + parseInt(e.currentTarget.getAttribute('data-slide'), 10),
       ),
     );
-    this.currentDate.setDate(1);
   }
 
   highlightedDay(day) {
-    const d = new Date(this.currentDate);
+    const d = new Date(this._currentDate);
     d.setDate(day);
     d.setHours(0, 0, 0, 0);
     const res = this.dates.find(event => new Date(event.date).valueOf() === d.valueOf());
@@ -494,8 +502,8 @@ export class PandoraCalendar extends LitElement {
   }
 
   highlightedDayBefore(day) {
-    const d = new Date(this.currentDate);
-    d.setMonth(this.currentDate.getMonth() - 1);
+    const d = new Date(this._currentDate);
+    d.setMonth(this._currentDate.getMonth() - 1);
     d.setDate(day);
 
     d.setHours(0, 0, 0, 0);
@@ -504,8 +512,8 @@ export class PandoraCalendar extends LitElement {
   }
 
   highlightedDayAfter(day) {
-    const d = new Date(this.currentDate);
-    d.setMonth(this.currentDate.getMonth() + 1);
+    const d = new Date(this._currentDate);
+    d.setMonth(this._currentDate.getMonth() + 1);
     d.setDate(day);
 
     d.setHours(0, 0, 0, 0);
