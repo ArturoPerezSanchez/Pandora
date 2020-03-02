@@ -273,7 +273,6 @@ export class PandoraChart extends LitElement {
     this.endpointurl = '';
     this.zoomable = false;
 
-    this._data = [];
     this._error = '';
     this._response = [];
     this._axis = [];
