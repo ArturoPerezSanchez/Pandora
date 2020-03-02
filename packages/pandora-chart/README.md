@@ -1,27 +1,27 @@
-# \<pandora-progress>
-
+# \<pandora-chart>
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
-It's a customizable and responsive progress bar, the title is optional and the default color and percentage its green and 0 
-respectivel.
+It's a customizable and responsive chart made with c3 library, it reads the data directly from a JSON or from an endpoint URL
 
 ## Variables
-    title(String): The titled displayed over the bar
-    percentage(Number): How complete is the bar
-    color(String): Color of the filled part of the bar (can be chosen by name, hex, rgb, gradient...)
+    type(String): The display mode of the chart (line, spline, step, area, area, area-spline, bar, scatter, pie, donut or gauge)
+    units(String): The units will be displayed at the left part of the chart
+    endpointurl(String): URL with the json that contains the data, axis and colors
+    data(json): JSON with the json that contains the data, axis and colors
+    zoomable(Boolean): Allows the user to zoom the chart scrolling with the mouse.
 
 ## Installation
 ```bash
-npm i pandora-progress
+npm i pandora-chart
 ```
 
 ## Usage
 ```html
 <script type="module">
-  import 'pandora-progress/pandora-progress.js';
+  import 'pandora-chart/pandora-chart.js';
 </script>
 
-<pandora-progress></pandora-progress>
+<pandora-chart></pandora-chart>
 ```
 
 ## Testing using karma
