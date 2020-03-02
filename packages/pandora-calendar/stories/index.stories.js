@@ -6,7 +6,7 @@ import readme from '../README.md';
 
 const DATES = [
   { text: 'Reserva de cita médica', date: '05/25/2020' },
-  { text: 'Tes psicotécnico', date: '04/30/2020' },
+  { text: 'Olimpiadas de matemáticas', date: '04/30/2020' },
   { text: 'Reunion con clientes', date: '05/21/2020' },
 ];
 const arrowRightOptions = {
