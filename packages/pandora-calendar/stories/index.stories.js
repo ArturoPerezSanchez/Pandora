@@ -68,7 +68,6 @@ storiesOf('ÁTOMOS|pandora-calendar', module)
     return html`
       <div style="width: 50%; margin: auto;">
         <pandora-calendar
-          text(
           .arrowLeft=${arrowLeft}
           .arrowRight=${arrowRight}
           .bubblecolor=${bubblecolor}
