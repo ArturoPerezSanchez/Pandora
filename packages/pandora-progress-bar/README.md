@@ -6,7 +6,7 @@ It's a customizable and responsive progress bar, the title is optional and the d
 respectivel.
 
 ## Variables
-    title(String): The titled displayed over the bar
+    title(String): The title displayed over the bar
     percentage(Number): How complete is the bar
     color(String): Color of the filled part of the bar (can be chosen by name, hex, rgb, gradient...)
 
