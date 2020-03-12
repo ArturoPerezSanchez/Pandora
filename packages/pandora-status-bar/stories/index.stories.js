@@ -3,7 +3,7 @@ import { withKnobs, boolean, object, color, text } from '@storybook/addon-knobs'
 import '../pandora-status-bar.js';
 import readme from '../README.md';
 
-const DATES = [
+const STATES = [
   {
     title: 'Solicitud recibida',
     text: 'hemos recibido correctamente su solicitud y tardaremos unos dias es procesarla',
@@ -23,7 +23,7 @@ storiesOf('ÁTOMOS|pandora-status-bar', module)
   })
   .addDecorator(withKnobs)
   .add('Default status bar', () => {
-    const STATUS = object('estados ', DATES);
+    const STATUS = object('estados ', STATES);
     const TITLE = text('Título ', 'Estado de su orden');
     return html`
       <br />
@@ -34,7 +34,7 @@ storiesOf('ÁTOMOS|pandora-status-bar', module)
   })
   .add('Colorful status bar', () => {
     const VERTICAL = boolean('vertical ', false);
-    const STATUS = object('estados ', DATES);
+    const STATUS = object('estados ', STATES);
     const COMPLETEDSTATECOLOR = color('estados completados', 'darkorange');
     const BARCOLOR = color(
       'color de la barra',
