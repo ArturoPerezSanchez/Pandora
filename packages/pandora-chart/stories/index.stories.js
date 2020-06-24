@@ -3,7 +3,7 @@ import { withKnobs, text, select, object, boolean } from '@storybook/addon-knobs
 import '../pandora-chart.js';
 import readme from '../README.md';
 
-const ENDPOINTURL = 'http://www.mocky.io/v2/5e5cf9f9320000770043c4ff';
+const ENDPOINTURL = 'https://www.mocky.io/v2/5e5cf9f9320000770043c4ff';
 const TYPE_OPTIONS = {
   line: 'line',
   spline: 'spline',
