@@ -2,8 +2,6 @@ import { html, css, LitElement } from 'lit-element';
 
 export class PandoraTabs extends LitElement {
   static get styles() {
-    console.log('puta ');
-    console.log(this.backgroundcolor);
     return css`
       .container {
         width: 100%;
@@ -160,7 +158,6 @@ export class PandoraTabs extends LitElement {
         })
         .catch(error => {
           this._error = `ERROR_Fetch: ${error.message}`;
-          console.log('aaaa');
         });
     }
   }
