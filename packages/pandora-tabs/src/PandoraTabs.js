@@ -90,7 +90,17 @@ export class PandoraTabs extends LitElement {
       </style>
       <div class="container">
         <ul>
-          ${this.getList()}
+          ${this._data.map(
+            (dato, index) => html`
+              <li
+                class="list ${index === this.selected ? 'active' : ''}"
+                data-slide=${index}
+                @click=${this.changeSelection}
+              >
+                ${dato.label}
+              </li>
+            `,
+          )}
         </ul>
       </div>
     `;
@@ -98,11 +108,16 @@ export class PandoraTabs extends LitElement {
 
   getList() {
     const res = [];
-    const { selected } = this;
 
     this._data.forEach((dato, index) => {
       res.push(html`
-        <li class="list ${index === selected ? 'active' : ''}">${dato.label}</li>
+        <li
+          class="list ${index === this.selected ? 'active' : ''}"
+          data-slide=${index}
+          @click=${this.changeSelection}
+        >
+          ${dato.label}
+        </li>
       `);
     });
     return res;
@@ -122,20 +137,36 @@ export class PandoraTabs extends LitElement {
         this.updatedResponse();
       } else if (['textcolor', 'backgroundcolor'].includes(propName)) {
         this.updateElements();
-      } else if (['activetextcolor', 'activebackgroundcolor'].includes(propName)) {
+        this.updateActive();
+      } else if (['activetextcolor', 'activebackgroundcolor', 'selected'].includes(propName)) {
         this.updateActive();
       }
     });
   }
 
-  // updateElements(){
-  //   const items = this.shadowRoot.querySelectorAll('.list');
-  //   items.forEach(item => {
-  //      item.style.color = this.textcolor;
-  //      item.style.backgroundColor = this.backgroundcolor;
-  //   });
+  /* eslint no-param-reassign: ["error", { "props": false }] */
+  changeSelection(e) {
+    this.selected = parseInt(e.currentTarget.getAttribute('data-slide'), 10);
+    this.updateElements();
+  }
 
-  // }
+  /* eslint no-param-reassign: ["error", { "props": false }] */
+  updateElements() {
+    const items = this.shadowRoot.querySelectorAll('.list');
+    items.forEach(item => {
+      item.style.color = this.textcolor;
+      item.style.backgroundColor = this.backgroundcolor;
+    });
+  }
+
+  /* eslint no-param-reassign: ["error", { "props": false }] */
+  updateActive() {
+    const items = this.shadowRoot.querySelectorAll('.active');
+    items.forEach(item => {
+      item.style.color = this.activetextcolor;
+      item.style.backgroundColor = this.activebackgroundcolor;
+    });
+  }
 
   updatedResponse() {
     if (this.data) {

@@ -20,7 +20,7 @@ storiesOf('ÁTOMOS|pandora-tabs', module)
     const TEXTCOLOR = color('text color', 'black');
     const BACKGROUNDCOLOR = color('background color', 'white');
     const ACTIVEBACKGROUNDCOLOR = color('active background color', 'green');
-    const ACTIVETEXTCOLOR = color('active text color', 'green');
+    const ACTIVETEXTCOLOR = color('active text color', 'black');
     return html`
       <br /><br />
       <style>
