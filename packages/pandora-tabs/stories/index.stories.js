@@ -10,7 +10,7 @@ const DATA = [
 ];
 const CONTENT = text('content', 'http://www.mocky.io/v2/5e6a865f2d000093005fa42f');
 
-storiesOf('ÁTOMOS|pandora-tabs', module)
+storiesOf('CORE|pandora-tabs', module)
   .addParameters({
     notes: { markdown: readme },
   })

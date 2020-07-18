@@ -17,7 +17,7 @@ const STATES = [
   },
 ];
 
-storiesOf('ÁTOMOS|pandora-status-bar', module)
+storiesOf('DISPLAY|pandora-status-bar', module)
   .addParameters({
     notes: { markdown: readme },
   })

@@ -6,7 +6,7 @@ import readme from '../README.md';
 
 const borderOptions = { range: true, min: 0, max: 25, step: 1 };
 
-storiesOf('ÁTOMOS|pandora-social-share', module)
+storiesOf('BRAND|pandora-social-share', module)
   .addParameters({
     notes: { markdown: readme },
   })

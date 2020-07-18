@@ -80,7 +80,7 @@ const DATA_THREE_COLUMNS = [
   },
 ];
 
-storiesOf('ÁTOMOS|pandora-footer', module)
+storiesOf('CORE|pandora-footer', module)
   .addParameters({
     notes: { markdown: readme },
   })
