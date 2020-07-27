@@ -8,7 +8,6 @@ export class PandoraTabs extends LitElement {
       }
 
       a {
-        color: #087021;
         font-family: 'Open Sans', sans-serif;
         font-weight: bold;
         line-height: 1.1875rem;
@@ -36,10 +35,6 @@ export class PandoraTabs extends LitElement {
         border-color: #333333 #333333 transparent #333333;
         border-bottom: none;
         border-radius: 1%;
-      }
-
-      .list.active a {
-        color: #333;
       }
 
       .list:hover {
@@ -97,30 +92,15 @@ export class PandoraTabs extends LitElement {
                 data-slide=${index}
                 @click=${this.changeSelection}
               >
-                ${dato.label}
+                <a>
+                  ${dato.label}
+                </a>
               </li>
             `,
           )}
         </ul>
       </div>
     `;
-  }
-
-  getList() {
-    const res = [];
-
-    this._data.forEach((dato, index) => {
-      res.push(html`
-        <li
-          class="list ${index === this.selected ? 'active' : ''}"
-          data-slide=${index}
-          @click=${this.changeSelection}
-        >
-          ${dato.label}
-        </li>
-      `);
-    });
-    return res;
   }
 
   changeActive(e) {
@@ -139,6 +119,9 @@ export class PandoraTabs extends LitElement {
         this.updateElements();
         this.updateActive();
       } else if (['activetextcolor', 'activebackgroundcolor', 'selected'].includes(propName)) {
+        this.updateActive();
+      } else {
+        this.updateElements();
         this.updateActive();
       }
     });

@@ -104,7 +104,7 @@ export class PandoraCalendar extends LitElement {
         cursor: pointer;
         font-size: 1.3em;
         width: 100%;
-        8height: 100%;
+        height: 100%;
         margin-left: 10%;
         margin-right: 10%;
         border-radius: 50%;
