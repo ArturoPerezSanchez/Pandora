@@ -163,8 +163,8 @@ export class PandoraFooter extends LitElement {
     this.linksColor = '#087021';
     this.linksTitleColor = '#087021';
     this.backgroundColor = '#ddd';
-    this.textColor = 'fff';
-    this.textSize = '18px';
+    this.textColor = '333';
+    this.textSize = '33px';
     this.active = -1;
   }
 

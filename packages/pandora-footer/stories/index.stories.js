@@ -1,14 +1,8 @@
 import { storiesOf, html } from '@open-wc/demoing-storybook';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { withKnobs, text, boolean, object } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, object, color } from '@storybook/addon-knobs';
 import '../pandora-footer.js';
 import readme from '../README.md';
-
-const DATA_LINKS = [
-  { title: 'Accesibilidad', href: '#' },
-  { title: 'Aviso legal', href: '#' },
-  { title: 'Contacto', href: '#' },
-];
 
 const DATA_FOUR_COLUMNS = [
   {
@@ -85,39 +79,36 @@ storiesOf('CORE|pandora-footer', module)
     notes: { markdown: readme },
   })
   .addDecorator(withKnobs)
-  .add('Footer formal', () => {
+  .add('Default Footer', () => {
     const columns = object('columns', DATA_FOUR_COLUMNS);
-    const LINKS = object('links', DATA_LINKS);
-    const TOPBORDER = boolean('topBorder', true);
     const TEXT = text('text', 'Compra venta y restauración de todo tipo de artículos');
-    const TEXTSIZE = text('text', '33px');
-    const TEXTCOLOR = text('text', '#333');
     return html`
-      <pandora-footer
-        .columns=${columns}
-        .links=${LINKS}
-        .topBorder=${TOPBORDER}
-        .text=${TEXT}
-        .textColor=${TEXTCOLOR}
-        .textSize=${TEXTSIZE}
-      ></pandora-footer>
+      <pandora-footer .columns=${columns} .text=${TEXT}></pandora-footer>
     `;
   })
-  .add('Footer casual', () => {
+  .add('Custom footer', () => {
     const columns = object('columns', DATA_THREE_COLUMNS);
-    const LINKS = object('links', DATA_LINKS);
-    const TOPBORDER = boolean('topBorder', false);
-    const LINKSCOLOR = text('text', 'white');
-    const BACKGROUNDCOLOR = text('text', 'linear-gradient(135deg, darkblue, #f000f0, darkred)');
-    const LINKSTITLECOLOR = text('text', '#f7f');
+    const TEXT = text('text', 'Compra venta y restauración de todo tipo de artículos');
+    const TEXTCOLOR = color('text color', '#fff');
+    const TEXTSIZE = text('text size', '2.5em');
+    const TOPBORDER = boolean('top Border', false);
+    const LINKSCOLOR = color('links color', 'white');
+    const LINKSTITLECOLOR = color('links title color', '#f7f');
+    const BACKGROUNDCOLOR = color(
+      'background color',
+      'linear-gradient(135deg, darkblue, #f000f0, darkred)',
+    );
+
     return html`
       <pandora-footer
-        .columns=${columns}
-        .links=${LINKS}
+        .columns="${columns}"
+        .text=${TEXT}
         .topBorder=${TOPBORDER}
         .linksColor=${LINKSCOLOR}
         .backgroundColor=${BACKGROUNDCOLOR}
         .linksTitleColor=${LINKSTITLECOLOR}
+        .textColor=${TEXTCOLOR}
+        .textSize=${TEXTSIZE}
       ></pandora-footer>
     `;
   });
