@@ -13,6 +13,7 @@ export class PandoraTabs extends LitElement {
         line-height: 1.1875rem;
         text-decoration: none;
         text-align: center;
+        color: unset;
       }
 
       ul {
@@ -92,7 +93,7 @@ export class PandoraTabs extends LitElement {
                 data-slide=${index}
                 @click=${this.changeSelection}
               >
-                <a>
+                <a href="${dato.href}">
                   ${dato.label}
                 </a>
               </li>
@@ -101,14 +102,6 @@ export class PandoraTabs extends LitElement {
         </ul>
       </div>
     `;
-  }
-
-  changeActive(e) {
-    const elements = Array.from(this.shadowRoot.querySelectorAll('li.active'));
-    elements.forEach(node => {
-      node.classList.remove('active');
-    });
-    e.currentTarget.classList.add('active');
   }
 
   updated(changedProperties) {
@@ -129,8 +122,11 @@ export class PandoraTabs extends LitElement {
 
   /* eslint no-param-reassign: ["error", { "props": false }] */
   changeSelection(e) {
-    this.selected = parseInt(e.currentTarget.getAttribute('data-slide'), 10);
-    this.updateElements();
+    const clicked = parseInt(e.currentTarget.getAttribute('data-slide'), 10);
+    if (this.selected !== clicked) {
+      this.selected = clicked;
+      this.updateElements();
+    }
   }
 
   /* eslint no-param-reassign: ["error", { "props": false }] */
