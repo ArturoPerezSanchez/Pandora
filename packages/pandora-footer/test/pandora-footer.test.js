@@ -7,12 +7,11 @@ describe('Footer', () => {
     const el = await fixture(html`
       <pandora-footer></padora-footer>
     `);
-    expect(el.textSize).to.equal('18px');
     expect(el.topBorder).to.equal(true);
     expect(el.linksColor).to.equal('#087021');
     expect(el.backgroundColor).to.equal('#ddd');
-    expect(el.textColor).to.equal('fff');
-    expect(el.textSize).to.equal('18px');
+    expect(el.textColor).to.equal('#333');
+    expect(el.textSize).to.equal('33px');
   });
 
   it('shows initially the empty columns', async () => {
@@ -116,7 +115,7 @@ describe('Footer', () => {
       },
     ];
     const el = await fixture(html`
-      <pandora-footer .columns=${DATA}></pandora-footer>
+      <pandora-footer .content=${DATA}></pandora-footer>
     `);
     el.shadowRoot.querySelectorAll('h4')[0].click();
     expect(el.shadowRoot.querySelectorAll('h4')[0].classList[0]).to.equal('rotated');

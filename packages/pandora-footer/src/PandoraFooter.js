@@ -298,11 +298,11 @@ export class PandoraFooter extends LitElement {
     } else {
       lists[index].classList.remove('media-hidden');
       lists[index].parentElement.getElementsByTagName('h4')[0].classList.add('rotated');
-      if (this.active >= 0) {
-        lists[this.active].classList.add('media-hidden');
-        lists[this.active].parentElement.getElementsByTagName('h4')[0].classList.remove('rotated');
+      if (this._active >= 0) {
+        lists[this._active].classList.add('media-hidden');
+        lists[this._active].parentElement.getElementsByTagName('h4')[0].classList.remove('rotated');
       }
     }
-    this.active = index;
+    this._active = index;
   }
 }
