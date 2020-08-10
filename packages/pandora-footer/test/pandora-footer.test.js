@@ -5,7 +5,7 @@ import '../pandora-footer.js';
 describe('Footer', () => {
   it('has a default colors and values', async () => {
     const el = await fixture(html`
-      <pandora-footer></padora-footer>
+      <pandora-footer></pandora-footer>
     `);
     expect(el.topBorder).to.equal(true);
     expect(el.linksColor).to.equal('#087021');
@@ -16,7 +16,7 @@ describe('Footer', () => {
 
   it('shows initially the empty columns', async () => {
     const el = await fixture(html`
-      <pandora-footer></<pandora-footer>
+      <pandora-footer></pandora-footer>
     `);
 
     expect(el).shadowDom.to.equal(`
@@ -77,10 +77,10 @@ describe('Footer', () => {
       },
     ];
     const el = await fixture(html`
-      <pandora-footer .columns=${DATA}></pandora-footer>
+      <pandora-footer .content=${DATA}></pandora-footer>
     `);
 
-    expect(el.columns).to.equal(DATA);
+    expect(el._columns).to.equal(DATA);
   });
 
   it('its responsive', async () => {
