@@ -87,43 +87,44 @@ export class PandoraHeader extends LitElement {
   render() {
     return html`
       <div class="container">
-        
         <header>
-          ${
-            this.imagePosition === 'left'
-              ? html`
-                  <img
-                    style="border-radius:${this.imageBorderRadius}; width:${this
-                      .imageWidth}; border-color:${this.imageBorderColor}; border-width:${this
-                      .imageBorderWidth};"
-                    src="${this.imageURL}"
-                    alt="image not found"
-                  />
-                `
-              : html``
-          }
+          ${this.imagePosition === 'left'
+            ? html`
+                <img
+                  style="border-radius:${this.imageBorderRadius}; width:${this
+                    .imageWidth}; border-color:${this.imageBorderColor}; border-width:${this
+                    .imageBorderWidth};"
+                  src="${this.imageURL}"
+                  alt="image not found"
+                />
+              `
+            : html``}
           <div class="title">
-            <h2 style="text-align: ${this.textPosition}; font-size:${this.textSize}; color:${
-      this.textColor
-    };" >${this.text}</h2>
-            <h3 style="text-align: ${this.textPosition}; font-size:${
-      this.secondaryTextSize
-    }; color:${this.secondaryTextColor};">${this.secondaryText}</h4>
+            <h2
+              style="text-align: ${this.textPosition}; font-size:${this.textSize}; color:${this
+                .textColor};"
+            >
+              ${this.text}
+            </h2>
+            <h3
+              style="text-align: ${this.textPosition}; font-size:${this
+                .secondaryTextSize}; color:${this.secondaryTextColor};"
+            >
+              ${this.secondaryText}
+            </h3>
           </div>
 
-          ${
-            this.imagePosition === 'right'
-              ? html`
-                  <img
-                    style="border-radius:${this.imageBorderRadius}; width:${this
-                      .imageWidth}; border-color:${this.imageBorderColor}; border-width:${this
-                      .imageBorderWidth};"
-                    src="${this.imageURL}"
-                    alt="image not found"
-                  />
-                `
-              : html``
-          }
+          ${this.imagePosition === 'right'
+            ? html`
+                <img
+                  style="border-radius:${this.imageBorderRadius}; width:${this
+                    .imageWidth}; border-color:${this.imageBorderColor}; border-width:${this
+                    .imageBorderWidth};"
+                  src="${this.imageURL}"
+                  alt="image not found"
+                />
+              `
+            : html``}
         </header>
       </div>
     `;
