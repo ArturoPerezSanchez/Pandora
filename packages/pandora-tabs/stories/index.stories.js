@@ -10,17 +10,28 @@ const DATA = [
 ];
 const CONTENT = text('content', 'http://www.mocky.io/v2/5e6a865f2d000093005fa42f');
 
-storiesOf('ÁTOMOS|pandora-tabs', module)
+storiesOf('CORE|pandora-tabs', module)
   .addParameters({
     notes: { markdown: readme },
   })
   .addDecorator(withKnobs)
-  .add('Default tabs', () => {
-    const SELECTED = number('SELECTED', 0);
+  .add(
+    'Default tabs',
+    () => html`
+      <br /><br />
+      <style>
+        html {
+        }
+      </style>
+      <pandora-tabs .data=${DATA}></pandora-tabs>
+    `,
+  )
+  .add('Custom tabs', () => {
+    const SELECTED = number('SELECTED', 1);
     const TEXTCOLOR = color('text color', 'black');
-    const BACKGROUNDCOLOR = color('background color', 'white');
-    const ACTIVEBACKGROUNDCOLOR = color('active background color', 'green');
-    const ACTIVETEXTCOLOR = color('active text color', 'black');
+    const BACKGROUNDCOLOR = color('background color', 'lightblue');
+    const ACTIVEBACKGROUNDCOLOR = color('active background color', 'darkblue');
+    const ACTIVETEXTCOLOR = color('active text color', 'white');
     return html`
       <br /><br />
       <style>

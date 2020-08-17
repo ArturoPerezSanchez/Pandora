@@ -13,14 +13,14 @@
 
   <script type="module">
     import { html, render } from 'lit-html';
-    import '../page-one.js';
+    import '../pandora-header.js';
 
     const title = 'Hello owc World!';
     render(
       html`
-        <page-one .title=${title}>
+        <pandora-header .title=${title}>
           some more light-dom
-        </page-one>
+        </pandora-header>
       `,
       document.querySelector('#demo')
     );

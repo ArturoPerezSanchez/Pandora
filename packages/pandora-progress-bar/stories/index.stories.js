@@ -4,7 +4,7 @@ import { withKnobs, text, number } from '@storybook/addon-knobs';
 import '../pandora-progress-bar.js';
 import readme from '../README.md';
 
-storiesOf('ÁTOMOS|pandora-progress-bar', module)
+storiesOf('DISPLAY|pandora-progress-bar', module)
   .addParameters({
     notes: { markdown: readme },
   })

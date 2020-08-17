@@ -28,7 +28,7 @@ const DATA = {
   axis: ['Enero', 'Marzo', 'Junio', 'Septiembre'],
 };
 
-storiesOf('ÁTOMOS|pandora-chart', module)
+storiesOf('DISPLAY|pandora-chart', module)
   .addParameters({
     notes: { markdown: readme },
   })

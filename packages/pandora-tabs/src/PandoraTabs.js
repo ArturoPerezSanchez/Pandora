@@ -8,12 +8,12 @@ export class PandoraTabs extends LitElement {
       }
 
       a {
-        color: #087021;
         font-family: 'Open Sans', sans-serif;
         font-weight: bold;
         line-height: 1.1875rem;
         text-decoration: none;
         text-align: center;
+        color: unset;
       }
 
       ul {
@@ -36,10 +36,6 @@ export class PandoraTabs extends LitElement {
         border-color: #333333 #333333 transparent #333333;
         border-bottom: none;
         border-radius: 1%;
-      }
-
-      .list.active a {
-        color: #333;
       }
 
       .list:hover {
@@ -97,38 +93,15 @@ export class PandoraTabs extends LitElement {
                 data-slide=${index}
                 @click=${this.changeSelection}
               >
-                ${dato.label}
+                <a href="${dato.href}">
+                  ${dato.label}
+                </a>
               </li>
             `,
           )}
         </ul>
       </div>
     `;
-  }
-
-  getList() {
-    const res = [];
-
-    this._data.forEach((dato, index) => {
-      res.push(html`
-        <li
-          class="list ${index === this.selected ? 'active' : ''}"
-          data-slide=${index}
-          @click=${this.changeSelection}
-        >
-          ${dato.label}
-        </li>
-      `);
-    });
-    return res;
-  }
-
-  changeActive(e) {
-    const elements = Array.from(this.shadowRoot.querySelectorAll('li.active'));
-    elements.forEach(node => {
-      node.classList.remove('active');
-    });
-    e.currentTarget.classList.add('active');
   }
 
   updated(changedProperties) {
@@ -140,14 +113,20 @@ export class PandoraTabs extends LitElement {
         this.updateActive();
       } else if (['activetextcolor', 'activebackgroundcolor', 'selected'].includes(propName)) {
         this.updateActive();
+      } else {
+        this.updateElements();
+        this.updateActive();
       }
     });
   }
 
   /* eslint no-param-reassign: ["error", { "props": false }] */
   changeSelection(e) {
-    this.selected = parseInt(e.currentTarget.getAttribute('data-slide'), 10);
-    this.updateElements();
+    const clicked = parseInt(e.currentTarget.getAttribute('data-slide'), 10);
+    if (this.selected !== clicked) {
+      this.selected = clicked;
+      this.updateElements();
+    }
   }
 
   /* eslint no-param-reassign: ["error", { "props": false }] */
