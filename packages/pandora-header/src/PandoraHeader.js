@@ -16,6 +16,10 @@ export class PandoraHeader extends LitElement {
         background: #eeeeee;
         margin-right: auto;
         margin-left: auto;
+        border: solid;
+        border-width: 0px;
+        background-repeat: no-repeat !important;
+        background-size: 100% 100% !important;
       }
 
       header {
@@ -25,14 +29,30 @@ export class PandoraHeader extends LitElement {
 
       img {
         border-radius: 50px;
+        width: 25%;
+        border: solid;
+        border-width: 0px;
+        border-color: black;
+        margin: 10px;
+        padding: 10px;
+      }
+
+      .title {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
       }
     `;
   }
 
   static get properties() {
     return {
-      image: { type: String },
+      imageURL: { type: String },
       imagePosition: { type: String },
+      imageWidth: { type: String },
+      imageBorderRadius: { type: String },
+      imageBorderWidth: { type: String },
+      imageBorderColor: { type: String },
       text: { type: String },
       textColor: { type: String },
       textSize: { type: String },
@@ -41,31 +61,69 @@ export class PandoraHeader extends LitElement {
       secondaryTextSize: { type: String },
       backgroundColor: { type: String },
       bottomBorder: { type: Boolean },
+      textPosition: { type: String },
     };
   }
 
   constructor() {
     super();
-    this.image = '';
+    this.imageURL = '';
     this.text = '';
     this.secondaryText = '';
 
-    this.imagePosition = 'left';
+    this.imagePosition = 'right';
+    this.imageBorderRadius = '0%';
+    this.imageBorderWidth = '0px';
+    this.imageBorderColor = 'black';
     this.textColor = 'black';
-    this.textSize = '20px';
+    this.textSize = '32px';
     this.secondaryTextColor = 'black';
-    this.secondaryTextSize = '14px';
-    this.backgroundColor = 'CCC';
-    this.bottomBorder = true;
+    this.secondaryTextSize = '18px';
+    this.backgroundColor = '#CCC';
+    this.textPosition = 'center';
+    this.imageWidth = '25%';
   }
 
   render() {
     return html`
       <div class="container">
+        
         <header>
-          <img src="${this.image}" class="${this.imagePosition}" alt="image not found" />
-          <h2>${this.text}</h2>
-          <h4>${this.secondaryText}</h4>
+          ${
+            this.imagePosition === 'left'
+              ? html`
+                  <img
+                    style="border-radius:${this.imageBorderRadius}; width:${this
+                      .imageWidth}; border-color:${this.imageBorderColor}; border-width:${this
+                      .imageBorderWidth};"
+                    src="${this.imageURL}"
+                    alt="image not found"
+                  />
+                `
+              : html``
+          }
+          <div class="title">
+            <h2 style="text-align: ${this.textPosition}; font-size:${this.textSize}; color:${
+      this.textColor
+    };" >${this.text}</h2>
+            <h3 style="text-align: ${this.textPosition}; font-size:${
+      this.secondaryTextSize
+    }; color:${this.secondaryTextColor};">${this.secondaryText}</h4>
+          </div>
+
+          ${
+            this.imagePosition === 'right'
+              ? html`
+                  <img
+                    style="border-radius:${this.imageBorderRadius}; width:${this
+                      .imageWidth}; border-color:${this.imageBorderColor}; border-width:${this
+                      .imageBorderWidth};"
+                    src="${this.imageURL}"
+                    alt="image not found"
+                  />
+                `
+              : html``
+          }
         </header>
       </div>
     `;
@@ -81,13 +139,31 @@ export class PandoraHeader extends LitElement {
 
   updated(changedProperties) {
     changedProperties.forEach((_, propName) => {
-      if (['backgroundColor'].includes(propName)) {
-        this.updateColor(this.backgroundColor);
+      if (
+        [
+          'backgroundColor',
+          'imageBorderRadius',
+          'imageBorderColor',
+          'imageBorderWidth',
+          'imagePosition',
+        ].includes(propName)
+      ) {
+        this.updateBackground();
       }
     });
   }
 
-  updateColor(backgroundColor) {
-    this.shadowRoot.querySelector('.container').style.background = backgroundColor;
+  updateBackground() {
+    if (this.imagePosition === 'background') {
+      this.shadowRoot.querySelector('.container').style.backgroundImage = `url('${this.imageURL}')`;
+      this.shadowRoot.querySelector('.container').style.borderRadius = this.imageBorderRadius;
+      this.shadowRoot.querySelector('.container').style.borderColor = this.imageBorderColor;
+      this.shadowRoot.querySelector('.container').style.borderWidth = this.imageBorderWidth;
+    } else {
+      this.shadowRoot.querySelector('.container').style.background = this.backgroundColor;
+      this.shadowRoot.querySelector('.container').style.borderRadius = '';
+      this.shadowRoot.querySelector('.container').style.borderColor = '';
+      this.shadowRoot.querySelector('.container').style.borderWidth = '';
+    }
   }
 }
