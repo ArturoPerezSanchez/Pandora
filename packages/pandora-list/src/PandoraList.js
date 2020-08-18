@@ -1,11 +1,11 @@
 import { html, css, LitElement } from 'lit-element';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 
 export class PandoraList extends LitElement {
   static get styles() {
     return css`
       :host {
         display: block;
-        font-size: 14px;
         font-family: 'Open Sans', sans-serif;
       }
 
@@ -17,12 +17,16 @@ export class PandoraList extends LitElement {
 
       .list {
         list-style-type: none;
-        border: 2px dashed black;
-        background-color: aliceblue;
       }
 
       .element {
-        background-color: red;
+        background-color: transparent;
+        border: 0px solid black;
+      }
+
+      li {
+        padding: 8px;
+        text-align: start;
       }
     `;
   }
@@ -30,13 +34,12 @@ export class PandoraList extends LitElement {
   static get properties() {
     return {
       endpointurl: { type: String },
-      elements: { type: String },
+      elements: { type: Array },
       listStyle: { type: String },
-      color: { type: String },
+      textColor: { type: String },
       backgroundColor: { type: String },
-      border: { type: String },
+      blockBorder: { type: String },
       customIcon: { type: String },
-      hoverColor: { type: String },
       _response: { type: Array },
     };
   }
@@ -44,13 +47,13 @@ export class PandoraList extends LitElement {
   constructor() {
     super();
     this.endpointurl = '';
-    this.elements = '';
-    this.listStyle = '';
-    this.color = '';
-    this.backgroundColor = '';
-    this.border = '';
+    this.elements = null;
+
+    this.listStyle = 'decimal';
+    this.textColor = 'white';
+    this.backgroundColor = '#333';
+    this.blockBorder = '2px solid black';
     this.customIcon = '';
-    this.hoverColor = '';
 
     this._response = [];
     this._error = '';
@@ -58,18 +61,29 @@ export class PandoraList extends LitElement {
 
   render() {
     return html`
-      <div class="container">
+      ${this.customIcon
+        ? html`
+            <style>
+              li:before {
+                margin-left: -27px;
+                margin-right: 10px;
+                content: '${this.customIcon}';
+              }
+            </style>
+          `
+        : html``}
+      <div class="container" style="background:${this.backgroundColor};">
         ${this._error
           ? html`
-              ${this.error}
+              ${this._error}
             `
           : html`
-              <ul class="list">
-                ${this._response.map(
-                  el => html`
-                    <li class="element">${el}</li>
-                  `,
-                )}
+              <ul
+                class="list"
+                style="color:${this.textColor}; list-style-type:${this.listStyle}; border:${this
+                  .blockBorder}"
+              >
+                ${this._response.map(el => unsafeHTML(this.getElements(el)))}
               </ul>
             `}
       </div>
@@ -101,7 +115,7 @@ export class PandoraList extends LitElement {
             response
               .json()
               .then(json => {
-                this._response = json.data;
+                this._response = json;
               })
               .catch(error => {
                 this._error = `ERROR_Json: ${error.message}`;
@@ -114,5 +128,18 @@ export class PandoraList extends LitElement {
           this._error = `ERROR_Fetch: ${error.message}`;
         });
     }
+  }
+
+  getElements(el) {
+    let res = `<li class="element">${el.title}`;
+    if (el.childs) {
+      res += `<ul class="list" style="color:${this.textColor}; list-style-type:${this.listStyle}; padding-left:25px;">`;
+      el.childs.forEach(child => {
+        res += this.getElements(child);
+      });
+      res += '</ul>';
+    }
+    res += '</li>';
+    return res;
   }
 }
