@@ -8,7 +8,7 @@ const DATA = [
   { label: 'En oferta', href: '#offers' },
   { label: 'Seminuevos', href: '#secondhanded' },
 ];
-const CONTENT = text('content', 'http://www.mocky.io/v2/5e6a865f2d000093005fa42f');
+const ENDPOINTURL = text('endpoint url', 'http://www.mocky.io/v2/5e6a865f2d000093005fa42f');
 
 storiesOf('CORE|pandora-tabs', module)
   .addParameters({
@@ -23,7 +23,7 @@ storiesOf('CORE|pandora-tabs', module)
         html {
         }
       </style>
-      <pandora-tabs .data=${DATA}></pandora-tabs>
+      <pandora-tabs .content=${DATA}></pandora-tabs>
     `,
   )
   .add('Custom tabs', () => {
@@ -42,8 +42,8 @@ storiesOf('CORE|pandora-tabs', module)
       </style>
       <pandora-tabs
         .selected=${SELECTED}
-        .content=${CONTENT}
-        .data=${DATA}
+        .endpointURL=${ENDPOINTURL}
+        .content=${DATA}
         .textcolor=${TEXTCOLOR}
         .backgroundcolor=${BACKGROUNDCOLOR}
         .activebackgroundcolor=${ACTIVEBACKGROUNDCOLOR}
