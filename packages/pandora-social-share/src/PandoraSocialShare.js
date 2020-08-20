@@ -184,12 +184,9 @@ export class PandoraSocialShare extends LitElement {
     changedProperties.forEach((_, propName) => {
       if (['backgroundcolor'].includes(propName)) {
         this.shadowRoot.querySelector('.container').style.background = this.backgroundcolor;
-      } else if (['border'].includes(propName)) {
+      } else if (['border', 'iconcolor', 'facebook', 'twitter', 'linkedin'].includes(propName)) {
         this.shadowRoot.querySelectorAll('.sb').forEach(but => {
           but.style.border = `${this.border.toString()}px solid var(--border-color)`;
-        });
-      } else if (['iconcolor'].includes(propName)) {
-        this.shadowRoot.querySelectorAll('.sb').forEach(but => {
           but.style.color = this.iconcolor;
         });
       }
