@@ -13,14 +13,14 @@
 
   <script type="module">
     import { html, render } from 'lit-html';
-    import '../pandora-cards.js';
+    import '../pandora-card.js';
 
     const title = 'Hello owc World!';
     render(
       html`
-        <pandora-cards .title=${title}>
+        <pandora-card .title=${title}>
           some more light-dom
-        </pandora-cards>
+        </pandora-card>
       `,
       document.querySelector('#demo')
     );
