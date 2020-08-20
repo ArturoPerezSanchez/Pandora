@@ -43,9 +43,6 @@ export class PandoraSocialShare extends LitElement {
         width: 2em;
       }
 
-      .sb:last-child {
-      }
-
       .sb::before {
         font-size: var(--font-size);
         font-family: 'social-share-kit';
