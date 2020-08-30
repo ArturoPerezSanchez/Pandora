@@ -52,8 +52,10 @@ export class PandoraTabs extends LitElement {
 
   static get properties() {
     return {
+      content: { type: Array },
+      endpointURL: { type: String },
+
       selected: { type: Number },
-      content: { type: String },
       textcolor: { type: String },
       backgroundcolor: { type: String },
       activebackgroundcolor: { type: String },
@@ -66,14 +68,16 @@ export class PandoraTabs extends LitElement {
 
   constructor() {
     super();
+    this.content = [];
+    this.endpointURL = '';
     this.selected = 0;
-    this.content = '';
-    this._data = [];
-    this._error = '';
     this.textcolor = 'green';
     this.backgroundcolor = 'white';
     this.activebackgroundcolor = 'white';
     this.activetextcolor = 'black';
+
+    this._data = [];
+    this._error = '';
   }
 
   render() {
@@ -106,7 +110,7 @@ export class PandoraTabs extends LitElement {
 
   updated(changedProperties) {
     changedProperties.forEach((_, propName) => {
-      if (['content', 'data'].includes(propName)) {
+      if (['content', 'endpointURL'].includes(propName)) {
         this.updatedResponse();
       } else if (['textcolor', 'backgroundcolor'].includes(propName)) {
         this.updateElements();
@@ -148,10 +152,10 @@ export class PandoraTabs extends LitElement {
   }
 
   updatedResponse() {
-    if (this.data) {
-      this._data = this.data;
+    if (this.content) {
+      this._data = this.content;
     } else {
-      fetch(this.content)
+      fetch(this.endpointURL)
         .then(response => {
           if (response.ok) {
             response
