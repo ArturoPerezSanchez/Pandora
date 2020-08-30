@@ -13,14 +13,14 @@
 
   <script type="module">
     import { html, render } from 'lit-html';
-    import '../pandora-slider.js';
+    import '../pandora-input-number.js';
 
     const title = 'Hello owc World!';
     render(
       html`
-        <pandora-slider .title=${title}>
+        <pandora-input-number .title=${title}>
           some more light-dom
-        </pandora-slider>
+        </pandora-input-number>
       `,
       document.querySelector('#demo')
     );

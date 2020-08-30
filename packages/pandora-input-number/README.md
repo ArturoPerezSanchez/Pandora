@@ -1,24 +1,24 @@
-# \<pandora-progress>
+# \<pandora-input-number>
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
-It's a customizable and responsive slider panel
+It's a customizable and responsive input for numbers
 
 ## Variables
-    color(String): Backgound color of slider
+    type(String): Either number or Range
 
 ## Installation
 ```bash
-npm i pandora-progress
+npm i pandora-input-number
 ```
 
 ## Usage
 ```html
 <script type="module">
-  import 'pandora-progress/pandora-progress.js';
+  import 'pandora-input-number/pandora-input-number.js';
 </script>
 
-<pandora-progress></pandora-progress>
+<pandora-input-number></pandora-input-number>
 ```
 
 ## Testing using karma
