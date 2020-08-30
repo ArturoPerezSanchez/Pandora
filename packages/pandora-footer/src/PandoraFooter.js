@@ -143,9 +143,8 @@ export class PandoraFooter extends LitElement {
     return {
       content: { type: Array },
       endpointURL: { type: String },
-
-      links: { type: Array },
       topBorder: { type: Boolean, reflect: true },
+
       text: { type: String },
       textColor: { type: String },
       textSize: { type: String },
@@ -163,9 +162,8 @@ export class PandoraFooter extends LitElement {
     super();
     this.content = null;
     this.endpointURL = '';
-
-    this.links = [];
     this.text = '';
+
     this.topBorder = true;
     this.linksColor = '#087021';
     this.linksTitleColor = '#087021';
@@ -189,7 +187,12 @@ export class PandoraFooter extends LitElement {
         <div class="container">
           ${this.text
             ? html`
-                <p class="text" style="color: ${this.textColor}; font-size:${this.textSize}">
+                <p
+                  class="text"
+                  style="
+              color: ${this.textColor}; 
+              font-size:${this.textSize}"
+                >
                   ${this.text}
                 </p>
               `
@@ -203,22 +206,21 @@ export class PandoraFooter extends LitElement {
                   @click="${this.displayList})"
                 >
                   <div class="columncontent">
-                    <h4 style="color:${this.linksTitleColor}">${columna.title}</h4>
+                    <h4 style="color:${this.linksTitleColor};">${columna.title}</h4>
                     <ul class="media-hidden">
                       ${columna.links
                         ? html`
                             ${columna.links.map(
-                              link =>
-                                html`
-                                  <li>
-                                    <a
-                                      href=${link.href}
-                                      title=${link.title}
-                                      style="color: ${this.linksColor}"
-                                      >${link.title}</a
-                                    >
-                                  </li>
-                                `,
+                              link => html`
+                                <li>
+                                  <a
+                                    href=${link.href}
+                                    title=${link.title}
+                                    style="color:${this.linksColor};"
+                                    >${link.title}
+                                  </a>
+                                </li>
+                              `,
                             )}
                           `
                         : html``}
