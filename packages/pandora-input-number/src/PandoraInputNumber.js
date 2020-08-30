@@ -6,11 +6,17 @@ export class PandoraInputNumber extends LitElement {
       .container {
         width: 100%;
       }
+      input {
+        margin: auto;
+        width: 100%;
+        margin-top: 2px;
+      }
     `;
   }
 
   static get properties() {
     return {
+      type: { type: String }, // range, number
       min: { type: Number },
       max: { type: Number },
       step: { type: Number },
@@ -24,17 +30,16 @@ export class PandoraInputNumber extends LitElement {
       textalign: { type: String },
       labelText: { type: String },
       name: { type: String },
-
       value: { type: Number },
       disabled: { type: Boolean },
       required: { type: Boolean },
       readonly: { type: Boolean },
-      type: { type: String }, // range, number
     };
   }
 
   constructor() {
     super();
+    this.type = 'number'; // range, number
     this.min = 0;
     this.max = 10;
     this.step = 1;
@@ -48,18 +53,16 @@ export class PandoraInputNumber extends LitElement {
     this.textalign = 'center';
     this.labelText = '';
     this.name = 'pandoraInput';
-
     this.value = 5;
     this.disabled = false;
     this.required = true;
     this.readonly = false;
-    this.type = 'number'; // range, number
   }
 
   render() {
     return html`
       <div class="container">
-        <label for=${this.name}>${this.labelText}</label>
+        <label for=${this.name}>${this.labelText}</label><br />
         <input
           aria-label=${this.name}
           name=${this.name}
