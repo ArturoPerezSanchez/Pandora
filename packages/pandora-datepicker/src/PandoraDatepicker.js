@@ -6,37 +6,76 @@ export class PandoraDatepicker extends LitElement {
       .container {
         width: 100%;
       }
+      input {
+        padding: 5px;
+        width: 100%;
+      }
     `;
   }
 
   static get properties() {
     return {
-      text: { type: String },
+      type: { type: String }, // week, month, date, datetime-local, time
+
+      step: { type: Number },
+
       textcolor: { type: String },
       backgroundcolor: { type: String },
-      activebackgroundcolor: { type: String },
-      activetextcolor: { type: String },
       textsize: { type: String },
-      borderradious: { type: String },
-      bordercolor: { type: String },
+      fontweight: { type: String },
+      borderradius: { type: String },
+      border: { type: String },
+      textalign: { type: String },
+      labelText: { type: String },
+      name: { type: String },
+      disabled: { type: Boolean },
+      required: { type: Boolean },
+      readonly: { type: Boolean },
     };
   }
 
   constructor() {
     super();
-    this.text = '';
-    this.textcolor = 'green';
-    this.backgroundcolor = 'white';
-    this.activebackgroundcolor = 'white';
-    this.activetextcolor = 'black';
-    this.textsize = '12px';
-    this.borderradious = '0%';
-    this.bordercolor = 'black';
+    this.type = 'datetime-local'; // week, month, date, datetime-local, time
+
+    this.step = 1;
+    this.textcolor = 'black';
+    this.backgroundcolor = '#ccc';
+    this.textsize = '18px';
+    this.fontweight = '200';
+    this.borderradius = '3px';
+    this.border = '3px solid #333';
+    this.textalign = 'center';
+    this.labelText = '';
+    this.name = 'pandoraInput';
+    this.disabled = false;
+    this.required = true;
+    this.readonly = false;
   }
 
   render() {
     return html`
-      <div class="container"></div>
+      <div class="container">
+        <label for=${this.name}>${this.labelText}</label><br />
+        <input
+          aria-label=${this.name}
+          name=${this.name}
+          type=${this.type}
+          step=${this.step}
+          ?disabled=${this.disabled}
+          ?required=${this.required}
+          ?readonly=${this.readonly}
+          style="
+            color:${this.textcolor};
+            background:${this.backgroundcolor};
+            text-align:${this.textalign};
+            font-size:${this.textsize};
+            border-radius:${this.borderradius};
+            border:${this.border};
+            font-weight:${this.fontweight};
+          "
+        />
+      </div>
     `;
   }
 
