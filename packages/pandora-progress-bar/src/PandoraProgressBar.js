@@ -37,6 +37,7 @@ export class PandoraProgressBar extends LitElement {
         border-radius: 2px;
         text-align: right;
         background: green;
+        transition: all 0.6s ease;
       }
 
       .bar-text {

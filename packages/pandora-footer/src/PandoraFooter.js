@@ -87,7 +87,7 @@ export class PandoraFooter extends LitElement {
         .text {
           margin: 0 5% 0 5%;
           padding: 10px;
-          fontsize: 10px;
+          font-size: 10px;
         }
         h4 {
           display: flex;
@@ -141,71 +141,99 @@ export class PandoraFooter extends LitElement {
 
   static get properties() {
     return {
-      columns: { type: Array },
-      links: { type: Array },
+      content: { type: Array },
+      endpointURL: { type: String },
       topBorder: { type: Boolean, reflect: true },
+
       text: { type: String },
       textColor: { type: String },
       textSize: { type: String },
       linksTitleColor: { type: String },
       linksColor: { type: String },
       backgroundColor: { type: String },
+
       _active: { type: Number },
+      _columns: { type: Array },
+      _error: { type: String },
     };
   }
 
   constructor() {
     super();
-    this.columns = [];
-    this.links = [];
+    this.content = null;
+    this.endpointURL = '';
     this.text = '';
+
     this.topBorder = true;
     this.linksColor = '#087021';
     this.linksTitleColor = '#087021';
     this.backgroundColor = '#ddd';
-    this.textColor = '333';
+    this.textColor = '#333';
     this.textSize = '33px';
-    this.active = -1;
+
+    this._active = -1;
+    this._columns = [];
+    this._error = '';
   }
 
   render() {
-    return html`
-      <div class="container">
-        ${this.text
-          ? html`
-              <p class="text" style="color: ${this.textColor}; font-size:${this.textSize}">
-                ${this.text}
-              </p>
-            `
-          : html``}
-        <div class="columns">
-          ${this.columns.map(
-            columna => html`
-              <div
-                class="column"
-                column-index=${this.columns.indexOf(columna)}
-                @click="${this.displayList})"
-              >
-                <div class="columncontent">
-                  <h4 style="color:${this.linksTitleColor}">${columna.title}</h4>
-                  <ul class="media-hidden">
-                    ${columna.links.map(
-                      link => html`
-                        <li>
-                          <a href=${link.href} title=${link.title} style="color: ${this.linksColor}"
-                            >${link.title}</a
-                          >
-                        </li>
-                      `,
-                    )}
-                  </ul>
+    let res;
+    if (this._error) {
+      res = html`
+        ${this._error}
+      `;
+    } else {
+      res = html`
+        <div class="container">
+          ${this.text
+            ? html`
+                <p
+                  class="text"
+                  style="
+              color: ${this.textColor}; 
+              font-size:${this.textSize}"
+                >
+                  ${this.text}
+                </p>
+              `
+            : html``}
+          <div class="columns">
+            ${this._columns.map(
+              columna => html`
+                <div
+                  class="column"
+                  column-index=${this._columns.indexOf(columna)}
+                  @click="${this.displayList})"
+                >
+                  <div class="columncontent">
+                    <h4 style="color:${this.linksTitleColor};">${columna.title}</h4>
+                    <ul class="media-hidden">
+                      ${columna.links
+                        ? html`
+                            ${columna.links.map(
+                              link => html`
+                                <li>
+                                  <a
+                                    href=${link.href}
+                                    title=${link.title}
+                                    style="color:${this.linksColor};"
+                                    >${link.title}
+                                  </a>
+                                </li>
+                              `,
+                            )}
+                          `
+                        : html``}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            `,
-          )}
+              `,
+            )}
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
+    return res;
   }
 
   firstUpdated() {
@@ -214,14 +242,43 @@ export class PandoraFooter extends LitElement {
       'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap';
     opensans.rel = 'stylesheet';
     document.head.append(opensans);
+    this.updatedResponse();
   }
 
   updated(changedProperties) {
     changedProperties.forEach((_, propName) => {
       if (['backgroundColor'].includes(propName)) {
         this.updateColor(this.backgroundColor);
+      } else if (['endpointURL', 'content', '_columns'].includes(propName)) {
+        this.updatedResponse();
       }
     });
+  }
+
+  updatedResponse() {
+    this._error = null;
+    if (this.content) {
+      this._columns = this.content;
+    } else {
+      fetch(this.endpointURL)
+        .then(response => {
+          if (response.ok) {
+            response
+              .json()
+              .then(json => {
+                this._columns = json;
+              })
+              .catch(error => {
+                this._error = `ERROR_Json: ${error.message}`;
+              });
+          } else {
+            this._error = `Respuesta de red KO`;
+          }
+        })
+        .catch(error => {
+          this._error = `ERROR_Fetch: ${error.message}`;
+        });
+    }
   }
 
   updateColor(backgroundColor) {
@@ -232,7 +289,7 @@ export class PandoraFooter extends LitElement {
     const index = e.currentTarget.getAttribute('column-index');
     const lists = this.shadowRoot.querySelectorAll('ul');
 
-    if (this.active === index) {
+    if (this._active === index) {
       if (lists[index].classList.contains('media-hidden')) {
         lists[index].classList.remove('media-hidden');
         lists[index].parentElement.getElementsByTagName('h4')[0].classList.add('rotated');
@@ -243,11 +300,11 @@ export class PandoraFooter extends LitElement {
     } else {
       lists[index].classList.remove('media-hidden');
       lists[index].parentElement.getElementsByTagName('h4')[0].classList.add('rotated');
-      if (this.active >= 0) {
-        lists[this.active].classList.add('media-hidden');
-        lists[this.active].parentElement.getElementsByTagName('h4')[0].classList.remove('rotated');
+      if (this._active >= 0) {
+        lists[this._active].classList.add('media-hidden');
+        lists[this._active].parentElement.getElementsByTagName('h4')[0].classList.remove('rotated');
       }
     }
-    this.active = index;
+    this._active = index;
   }
 }
