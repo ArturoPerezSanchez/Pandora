@@ -236,12 +236,12 @@ export class PandoraCalendar extends LitElement {
 
   constructor() {
     super();
+    this.dates = [];
+
     this.arrowLeft = '\u{1f844}';
     this.arrowRight = '\u{1f846}';
     this.bubblecolor = '#333';
     this.bubbletextcolor = '#fff';
-    this._currentDate = new Date();
-    this.dates = [];
     this.daysbackgroundcolor = 'white';
     this.dayscolor = '#000';
     this.headerbackgroundcolor = '#333';
@@ -251,6 +251,8 @@ export class PandoraCalendar extends LitElement {
     this.weekdaysvalues = 'narrow'; // 'long', 'short', 'letter', 'narrow'
     this.weekdaystextcolor = '#000';
     this.weekstart = 1; // 0 sunday, 1 monday, 2 tuesday...
+
+    this._currentDate = new Date();
   }
 
   render() {
