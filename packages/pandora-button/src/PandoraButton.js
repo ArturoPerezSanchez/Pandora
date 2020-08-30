@@ -6,39 +6,68 @@ export class PandoraButton extends LitElement {
       .container {
         width: 100%;
       }
+      button {
+        width: 100%;
+      }
     `;
   }
 
   static get properties() {
     return {
-      text: { type: String },
       textcolor: { type: String },
       backgroundcolor: { type: String },
-      activebackgroundcolor: { type: String },
-      activetextcolor: { type: String },
-      width: { type: String },
+      textalign: { type: String },
+      padding: { typer: String },
       textsize: { type: String },
-      borderradious: { type: String },
-      bordercolor: { type: String },
+      fontweight: { type: String },
+      borderradius: { type: String },
+      border: { type: String },
+      value: { type: String },
+      name: { type: String },
+      disabled: { type: Boolean },
+      onclick: { type: String },
     };
   }
 
   constructor() {
     super();
-    this.text = '';
-    this.textcolor = 'green';
-    this.backgroundcolor = 'white';
-    this.activebackgroundcolor = 'white';
-    this.activetextcolor = 'black';
-    this.width = '100px';
-    this.textsize = '12px';
-    this.borderradious = '0%';
-    this.bordercolor = 'black';
+    this.textcolor = 'black';
+    this.backgroundcolor = '#ccc';
+    this.textsize = '18px';
+    this.fontweight = '200';
+    this.borderradius = '9px';
+    this.border = '3px solid #333';
+    this.textalign = 'center';
+    this.name = 'pandoraInput';
+    this.padding = '5px';
+    this.value = 'Click Me!';
+    this.disabled = false;
+    this.onclick = "alert('you cclicked me!')";
   }
 
   render() {
     return html`
-      <div class="container"></div>
+      <div class="container">
+      
+      <button
+          aria-label=${this.name}
+          name=${this.name}
+          type=button
+          onclick=${this.onclick}
+          ?disabled=${this.disabled}
+          style="
+            color:${this.textcolor};
+            background:${this.backgroundcolor};
+            text-align:${this.textalign};
+            font-size:${this.textsize};
+            border-radius:${this.borderradius};
+            border:${this.border};
+            padding:${this.padding};
+            font-weight:${this.fontweight};
+          "
+        />
+  ${this.value} </button>
+      </div>
     `;
   }
 
