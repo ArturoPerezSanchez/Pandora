@@ -6,7 +6,7 @@ import readme from '../README.md';
 
 const DATES = [
   { text: 'Reserva de cita médica', date: '05/25/2020' },
-  { text: 'Tes psicotécnico', date: '04/30/2020' },
+  { text: 'Olimpiadas de matemáticas', date: '04/30/2020' },
   { text: 'Reunion con clientes', date: '05/21/2020' },
 ];
 const arrowRightOptions = {
@@ -32,7 +32,7 @@ const arrowLeftOptions = {
 const weekdaysvaluesoptions = { narrow: 'narrow', short: 'short', long: 'long' };
 const weekOptions = { range: true, min: 0, max: 7, step: 1 };
 
-storiesOf('ÁTOMOS|pandora-calendar', module)
+storiesOf('DISPLAY|pandora-calendar', module)
   .addParameters({
     notes: { markdown: readme },
   })
@@ -68,7 +68,6 @@ storiesOf('ÁTOMOS|pandora-calendar', module)
     return html`
       <div style="width: 50%; margin: auto;">
         <pandora-calendar
-          text(
           .arrowLeft=${arrowLeft}
           .arrowRight=${arrowRight}
           .bubblecolor=${bubblecolor}

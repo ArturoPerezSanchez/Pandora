@@ -5,7 +5,7 @@ import '../pandora-progress-bar.js';
 describe('Progress Bar', () => {
   it('has a default colors and values', async () => {
     const el = await fixture(html`
-      <pandora-progress-bar></padora-progress-bar>
+      <pandora-progress-bar></pandora-progress-bar>
     `);
     expect(el.percentage).to.equal(0);
     expect(el.color).to.equal('green');
@@ -14,7 +14,7 @@ describe('Progress Bar', () => {
 
   it('changes to "completado" if the percentage is bigger than 100', async () => {
     const el = await fixture(html`
-      <pandora-progress-bar percentage=100></<pandora-progress-bar>
+      <pandora-progress-bar percentage="100"></pandora-progress-bar>
     `);
 
     expect(el).shadowDom.to.equal(`
