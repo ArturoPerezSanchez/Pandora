@@ -60,11 +60,11 @@ storiesOf('BRAND|pandora-gallery', module)
     const horizontalBar = boolean('horizontal bar', false);
     const arrowsBackgroundColor = color(
       'arrows background color',
-      'linear-gradient(0deg, #f0f, white)',
+      'linear-gradient(0deg, rgba(96,10,111,1) 0%, rgba(0,61,255,1) 30%,  #fff 100%)',
     );
     const carouselBackgroundColor = color(
       'carousel background color',
-      'linear-gradient(0deg, #f0f, white)',
+      'linear-gradient(0deg, rgba(96,10,111,1) 0%, rgba(0,61,255,1) 30%,  #fff 100%)',
     );
     const alt = text('alternative text', 'No se ha podido encontrar la imagen');
     return html`

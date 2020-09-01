@@ -321,5 +321,7 @@ export class PandoraCarousel extends LitElement {
         node.style.marginRight = `${init + margin}px`;
       });
     }
+    this._offset = 0;
   }
+
 }

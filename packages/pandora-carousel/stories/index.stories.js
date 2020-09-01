@@ -211,11 +211,11 @@ storiesOf('BRAND|pandora-carousel', module)
     const LINKEDIN = boolean('linkedin', true);
     const BACKGROUNDCOLOR = color(
       'background color',
-      'linear-gradient(0deg, black, gray, white, white)',
+      'radial-gradient(at 80% bottom, rgba(170,147,255,1) 0%, rgba(0,61,255,1) 70%, rgba(86,0,101,1) 100%);',
     );
-    const TAGBACKGROUNDCOLOR = color('tag background color', 'linear-gradient(135deg, #0f0, #f0f)');
+    const TAGBACKGROUNDCOLOR = color('tag background color', 'linear-gradient(135deg, #5f5 0%, #f0f 60%)');
     const TAGCOLOR = color('tag color', 'white');
-    const TITLECOLOR = color('title color', 'black');
+    const TITLECOLOR = color('title color', 'white');
     const BODYCOLOR = color('body color', 'white');
     const LINKCOLOR = color('link color', 'white');
     const LINKTEXT = text('link text', 'Mas información');
