@@ -1,6 +1,15 @@
 <p align="center">
-  <img width="200" src="https://open-wc.org/hero.png"></img>
+  <img width="200" src="https://open-wc.org/35ded306.svg"></img>
 </p>
+
+# Pandora: An Open Source Web Component Library
+This repository is composed of a set of web components developed using the guidelines and tools proposed by [OWC](https://open-wc.org/) such as npm, LitElement, SCSS or JEST among others.
+
+The components can be downloaded from the <i>packages</i> folder for your use. Any kind of feedback or recommendation is welcome!
+ 
+ Additionally I leave a guide on how to start the project to develop your own components.
+
+
 
 ## Open-wc Starter App
 
